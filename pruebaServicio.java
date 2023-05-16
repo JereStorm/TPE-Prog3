@@ -1,3 +1,4 @@
+
 public class pruebaServicio {
     public static void main(String[] args) {
         Grafo<String> grafoDirigido = new GrafoDirigido<String>();
@@ -12,15 +13,21 @@ public class pruebaServicio {
         grafoDirigido.agregarVertice(5);
         grafoDirigido.agregarVertice(6);
         grafoDirigido.agregarVertice(7);
+        grafoDirigido.agregarVertice(8);
+        grafoDirigido.agregarVertice(9);
+        grafoDirigido.agregarVertice(10);
 
         //*Agregando Arcos
         grafoDirigido.agregarArco(1, 2, " uno + dos = tres");
         grafoDirigido.agregarArco(1, 3, " uno + tres = cuatro");
+        grafoDirigido.agregarArco(1, 9, " uno + nueve = diez");
         grafoDirigido.agregarArco(2, 4, " dos + cuatro = seis");
+        grafoDirigido.agregarArco(3, 8, " tres + ocho = once");
         grafoDirigido.agregarArco(3, 4, " tres + cuatro = siete");
         grafoDirigido.agregarArco(3, 7, " cuatro + siete = siete");
         grafoDirigido.agregarArco(4, 5, " cuatro + siete = siete");
-        grafoDirigido.agregarArco(4, 6, " cuatro + siete = siete");
+        grafoDirigido.agregarArco(4, 6, " cuatro + seis = siete");
+        grafoDirigido.agregarArco(6, 10, " seis + diez = diesiciete");
 
 //        System.out.println(dfs.dfsForest());
         System.out.println(bfs.bfsForest());
