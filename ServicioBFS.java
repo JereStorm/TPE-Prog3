@@ -50,7 +50,7 @@ public class ServicioBFS {
         while(!this.fila.isEmpty()){
             Iterator<Integer> itFila = this.fila.iterator();
             int x = itFila.next();// guardamos el vertice y avanzamos
-            this.fila.remove(0);// lo removemos
+            this.fila.remove(0);// lo removemos / 1
             Iterator<Integer> adyacentes = this.grafo.obtenerAdyacentes(x);//* iteramos los adyacentes del vertice
             while(adyacentes.hasNext() ) {
                 Integer a = adyacentes.next();// obtenemos el vertice de su adyacente
@@ -65,7 +65,6 @@ public class ServicioBFS {
                         fila_visit.add(a);//* lo agregamos a la fila que guarda todo el recorrido
                     }
                 }
-
             }
         }
         //* retornamos la fila con el recorrido completo
