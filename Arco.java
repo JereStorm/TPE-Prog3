@@ -25,17 +25,37 @@ public class Arco<T> {
         return verticeDestino;
     }
 
+   
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Arco<?> arco)) return false;
-        return this.verticeOrigen == arco.verticeOrigen && this.verticeDestino == arco.verticeDestino;
-    }
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Arco other = (Arco) obj;
+		if (etiqueta == null) {
+			if (other.etiqueta != null)
+				return false;
+		} else if (!etiqueta.equals(other.etiqueta))
+			return false;
+		if (verticeDestino != other.verticeDestino)
+			return false;
+		if (verticeOrigen != other.verticeOrigen)
+			return false;
+		return true;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(verticeOrigen, verticeDestino);
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((etiqueta == null) ? 0 : etiqueta.hashCode());
+		result = prime * result + verticeDestino;
+		result = prime * result + verticeOrigen;
+		return result;
+	}
 
     public T getEtiqueta() {
         return etiqueta;
