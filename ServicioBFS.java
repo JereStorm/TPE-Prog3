@@ -18,7 +18,6 @@ public class ServicioBFS {
             this.vertices.put(aux.next(),false);
         }
         aux = this.grafo.obtenerVertices();
-//        this.fila.addAll(this);
         while(aux.hasNext()){
             int v = aux.next();
             if (!this.vertices.get(v)) {

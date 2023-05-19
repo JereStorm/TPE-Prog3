@@ -37,8 +37,6 @@ public class ServicioDFS {
                aux.addAll(this.dfs_visit(x));
             }
         }
-//        this.vertices.put(v,"negro");
-        System.out.println(aux);
         return aux;
     }
 }
