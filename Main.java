@@ -28,7 +28,7 @@ public class Main {
         grafoDirigido.agregarArco(3, 4, " tres + cuatro = siete");
         grafoDirigido.agregarArco(3, 10, " tres + diez = trece");
         grafoDirigido.agregarArco(3, 7, " cuatro + siete = siete");
-        grafoDirigido.agregarArco(4, 1, " cuatro + uno = cinco");
+//        grafoDirigido.agregarArco(4, 1, " cuatro + uno = cinco");
         grafoDirigido.agregarArco(4, 5, " cuatro + siete = siete");
         grafoDirigido.agregarArco(4, 6, " cuatro + seis = siete");
         grafoDirigido.agregarArco(6, 10, " seis + diez = diesiciete");
@@ -114,6 +114,8 @@ public class Main {
 //        }
 //        System.out.println();
 
+        //* Ejercicio 3
+        System.out.println(grafoDirigido.esCiclico());
 
         //* Ejercicio 7
         System.out.println(grafoDirigido.obtenerCaminoMasCorto(1,6));

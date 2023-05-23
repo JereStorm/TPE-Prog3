@@ -159,6 +159,37 @@ public class GrafoDirigido<T> implements Grafo<T> {
             }
         return arcos.iterator();
     }
+    
+    /*-------------------------------------------------------------------------------------------------------------*/
+    
+    /*EJERCICIO 3 FUNCIONANDO*/
+    public boolean esCiclico() {
+    	Map<Integer,String> auxVertices = new HashMap<Integer, String>();
+    	Iterator<Integer> itVertices = this.obtenerVertices();
+    	while(itVertices.hasNext()) {
+    		auxVertices.put(itVertices.next(), "blanco");
+    	}
+         for(Integer v : auxVertices.keySet()){
+             if(auxVertices.get(v).equals("blanco")){
+            	  auxVertices.put(v,"amarillo");
+                  Iterator<Integer> adyacentes = this.obtenerAdyacentes(v);
+                  ArrayList<Integer> aux = new ArrayList<>();
+                  aux.add(v);
+                  while(adyacentes.hasNext()){
+                      int x = adyacentes.next();
+                      if(auxVertices.get(x).equals("blanco")){
+                         aux.add(x);
+                      }else if(auxVertices.get(x).equals("amarillo")){
+                    	  return true;
+                      }
+                  }
+             }
+         }
+    	
+    	return false;
+    }
+
+    /*EJERCICIO 7 PARA CAMINO MAS CORTO*/
 
     public ArrayList<Integer> obtenerCaminoMasCorto(int origen, int destino){
         ArrayList<Integer> aux = new ArrayList<>();
@@ -178,6 +209,8 @@ public class GrafoDirigido<T> implements Grafo<T> {
         }
         return aux;
     }
+    
+    /*EJERCICIO 7 PARA CAMINO MAS LARGO*/
 
     public ArrayList<Integer> obtenerCaminoMasLargo(int origen, int destino){
         ArrayList<Integer> aux = new ArrayList<>();
