@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class GrafoDirigido<T> implements Grafo<T> {
 
@@ -161,6 +158,44 @@ public class GrafoDirigido<T> implements Grafo<T> {
                 return this.vertices.get(verticeId).iterator();
             }
         return arcos.iterator();
+    }
+
+    public ArrayList<Integer> obtenerCaminoMasCorto(int origen, int destino){
+        ArrayList<Integer> aux = new ArrayList<>();
+        Ejercicio7 caminos = new Ejercicio7(this,origen,destino);
+        List<List<Integer>> soluciones = caminos.caminos();;
+        Iterator<List<Integer>> itSoluciones = soluciones.iterator();
+        while(itSoluciones.hasNext()){
+            List<Integer> a = itSoluciones.next();
+            if(aux.size() != 0) {
+                if(aux.size() > a.size()){
+                    aux.clear();
+                    aux.addAll(a);
+                }
+            }else{
+                aux.addAll(a);
+            }
+        }
+        return aux;
+    }
+
+    public ArrayList<Integer> obtenerCaminoMasLargo(int origen, int destino){
+        ArrayList<Integer> aux = new ArrayList<>();
+        Ejercicio7 caminos = new Ejercicio7(this,origen,destino);
+        List<List<Integer>> soluciones = caminos.caminos();;
+        Iterator<List<Integer>> itSoluciones = soluciones.iterator();
+        while(itSoluciones.hasNext()){
+            List<Integer> a = itSoluciones.next();
+            if(aux.size() != 0) {
+                if(aux.size() < a.size()){
+                    aux.clear();
+                    aux.addAll(a);
+                }
+            }else{
+                aux.addAll(a);
+            }
+        }
+        return aux;
     }
 
 }

@@ -1,10 +1,10 @@
-
 public class pruebaServicio {
     public static void main(String[] args) {
         Grafo<String> grafoDirigido = new GrafoDirigido<String>();
         ServicioDFS dfs = new ServicioDFS(grafoDirigido);
         ServicioBFS bfs = new ServicioBFS(grafoDirigido);
         ServicioCaminos caminos = new ServicioCaminos(grafoDirigido,1,6,4);
+
 
         //*Agregando Vertices
         grafoDirigido.agregarVertice(1);
@@ -32,8 +32,9 @@ public class pruebaServicio {
         grafoDirigido.agregarArco(4, 6, " cuatro + seis = siete");
         grafoDirigido.agregarArco(6, 10, " seis + diez = diesiciete");
 
-        System.out.println("dfs "+dfs.dfsForest());
-        System.out.println("bfs " +bfs.bfsForest());
+//        System.out.println("dfs "+dfs.dfsForest());
+//        System.out.println("bfs " +bfs.bfsForest());
         System.out.println(caminos.caminos());
+//        System.out.println(grafoDirigido);
     }
 }
