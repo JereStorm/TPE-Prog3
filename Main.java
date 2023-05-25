@@ -41,7 +41,7 @@ public class Main {
         System.out.println();
 
         //*Existe Arco
-        System.out.println("¿Existe un arco con origen: 1 y destino: 4? " + grafoDirigido.existeArco(1, 4));
+        System.out.println("¿Existe un arco con origen: 1 y destino: 3? " + grafoDirigido.existeArco(1, 3));
         System.out.println("¿Existe un arco con origen: 4 y destino: 2? " + grafoDirigido.existeArco(4, 2));
         System.out.println();
 
@@ -76,27 +76,27 @@ public class Main {
 
         //*Obtener Arco(X)
         System.out.println("Arcos con iterator ");
-        Iterator<Arco<String>> arco = grafoDirigido.obtenerArcos(2);
+        Iterator<Arco<String>> arco = grafoDirigido.obtenerArcos(3);
         while (arco.hasNext()) {
             System.out.println((" arcos de x vertice : " + arco.next()));
         }
         System.out.println();
 
         //*Borrar
-        System.out.println("Cantidad de vertices: " + grafoDirigido.cantidadVertices());
-        System.out.println("Cantidad de arcos: " + grafoDirigido.cantidadArcos());
-        System.out.println();
-        grafoDirigido.borrarVertice(4);
-        System.out.println("Cantidad de vertices: " + grafoDirigido.cantidadVertices());
-        System.out.println("Cantidad de arcos: " + grafoDirigido.cantidadArcos());
-        System.out.println();
-
-        System.out.println("Arcos con iterator ");
-        Iterator<Arco<String>> arcos2 = grafoDirigido.obtenerArcos();
-        while (arcos2.hasNext()) {
-            System.out.println((" arcos : " + arcos2.next()));
-        }
-        System.out.println();
+//        System.out.println("Cantidad de vertices: " + grafoDirigido.cantidadVertices());
+//        System.out.println("Cantidad de arcos: " + grafoDirigido.cantidadArcos());
+//        System.out.println();
+//        grafoDirigido.borrarVertice(4);
+//        System.out.println("Cantidad de vertices: " + grafoDirigido.cantidadVertices());
+//        System.out.println("Cantidad de arcos: " + grafoDirigido.cantidadArcos());
+//        System.out.println();
+//
+//        System.out.println("Arcos con iterator ");
+//        Iterator<Arco<String>> arcos2 = grafoDirigido.obtenerArcos();
+//        while (arcos2.hasNext()) {
+//            System.out.println((" arcos : " + arcos2.next()));
+//        }
+//        System.out.println();
 
         //*Obtener Vertices
         System.out.println("Vertices con iterator ");
