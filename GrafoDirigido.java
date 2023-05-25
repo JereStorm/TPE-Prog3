@@ -1,3 +1,5 @@
+import com.sun.source.tree.ReturnTree;
+
 import java.util.*;
 
 public class GrafoDirigido<T> implements Grafo<T> {
@@ -10,7 +12,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
      */
     @Override
     public void agregarVertice(int verticeId) {
-        if(!this.contieneVertice(verticeId)){
+        if (!this.contieneVertice(verticeId)) {
             this.vertices.put(verticeId, new ArrayList<Arco<T>>());
         }
     }
@@ -36,9 +38,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
      */
     @Override
     public void agregarArco(int verticeId1, int verticeId2, T etiqueta) {
-        if(this.contieneVertice(verticeId1) && this.contieneVertice(verticeId2)){
-            Arco<T> aux = new Arco<T>(verticeId1,verticeId2,etiqueta);
-            if(!this.vertices.get(verticeId1).contains(aux)){
+        if (this.contieneVertice(verticeId1) && this.contieneVertice(verticeId2)) {
+            Arco<T> aux = new Arco<T>(verticeId1, verticeId2, etiqueta);
+            if (!this.vertices.get(verticeId1).contains(aux)) {
                 this.vertices.get(verticeId1).add(aux);
             }
         }
@@ -49,7 +51,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
      */
     @Override
     public void borrarArco(int verticeId1, int verticeId2) {
-        if(this.existeArco(verticeId1,verticeId2)){
+        if (this.existeArco(verticeId1, verticeId2)) {
             this.vertices.get(verticeId1).remove(this.obtenerArco(verticeId1, verticeId2));
         }
     }
@@ -68,10 +70,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
      */
     @Override
     public boolean existeArco(int verticeId1, int verticeId2) {
-        if(this.contieneVertice(verticeId1)){
+        if (this.contieneVertice(verticeId1)) {
             ArrayList<Arco<T>> arcos = this.vertices.get(verticeId1);
-            for(Arco<T> arco : arcos){
-                if(arco.getVerticeDestino() == verticeId2){
+            for (Arco<T> arco : arcos) {
+                if (arco.getVerticeDestino() == verticeId2) {
                     return true;
                 }
             }
@@ -84,16 +86,17 @@ public class GrafoDirigido<T> implements Grafo<T> {
      */
     @Override
     public Arco<T> obtenerArco(int verticeId1, int verticeId2) {
-        if(this.contieneVertice(verticeId1)){
+        if (this.contieneVertice(verticeId1)) {
             ArrayList<Arco<T>> arcos = this.vertices.get(verticeId1);
-            for(Arco<T> arco : arcos){
-                if(arco.getVerticeDestino() == verticeId2){
+            for (Arco<T> arco : arcos) {
+                if (arco.getVerticeDestino() == verticeId2) {
                     return arco;
                 }
             }
         }
         return null;
     }
+
     /**
      * Complejidad: O(1) ya que el metodo .size() de hashMap es una operacion constante.
      */
@@ -128,8 +131,8 @@ public class GrafoDirigido<T> implements Grafo<T> {
     @Override
     public Iterator<Integer> obtenerAdyacentes(int verticeId) {
         ArrayList<Integer> adyacentes = new ArrayList<Integer>();
-        if(contieneVertice(verticeId)){
-            for (Arco<T> arco: this.vertices.get(verticeId)) {
+        if (contieneVertice(verticeId)) {
+            for (Arco<T> arco : this.vertices.get(verticeId)) {
                 adyacentes.add(arco.getVerticeDestino());
             }
         }
@@ -142,7 +145,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
     @Override
     public Iterator<Arco<T>> obtenerArcos() {
         ArrayList<Arco<T>> arcos = new ArrayList<Arco<T>>();
-        for(Integer key: this.vertices.keySet()){
+        for (Integer key : this.vertices.keySet()) {
             arcos.addAll(this.vertices.get(key));
         }
         return arcos.iterator();
@@ -154,77 +157,101 @@ public class GrafoDirigido<T> implements Grafo<T> {
     @Override
     public Iterator<Arco<T>> obtenerArcos(int verticeId) {
         ArrayList<Arco<T>> arcos = new ArrayList<Arco<T>>();
-            if(this.contieneVertice(verticeId)){
-                return this.vertices.get(verticeId).iterator();
-            }
+        if (this.contieneVertice(verticeId)) {
+            return this.vertices.get(verticeId).iterator();
+        }
         return arcos.iterator();
     }
-    
+
     /*-------------------------------------------------------------------------------------------------------------*/
-    
+
     /*EJERCICIO 3 FUNCIONANDO*/
     public boolean esCiclico() {
-    	Map<Integer,String> auxVertices = new HashMap<Integer, String>();
-    	Iterator<Integer> itVertices = this.obtenerVertices();
-    	while(itVertices.hasNext()) {
-    		auxVertices.put(itVertices.next(), "blanco");
-    	}
-         for(Integer v : auxVertices.keySet()){
-             if(auxVertices.get(v).equals("blanco")){
-            	  auxVertices.put(v,"amarillo");
-                  Iterator<Integer> adyacentes = this.obtenerAdyacentes(v);
-                  ArrayList<Integer> aux = new ArrayList<>();
-                  aux.add(v);
-                  while(adyacentes.hasNext()){
-                      int x = adyacentes.next();
-                      if(auxVertices.get(x).equals("blanco")){
-                         aux.add(x);
-                      }else if(auxVertices.get(x).equals("amarillo")){
-                    	  return true;
-                      }
-                  }
-             }
-         }
-    	
-    	return false;
+        Map<Integer, String> auxVertices = new HashMap<Integer, String>();
+        Iterator<Integer> itVertices = this.obtenerVertices();
+        while (itVertices.hasNext()) {
+            auxVertices.put(itVertices.next(), "blanco");
+        }
+        for (Integer v : auxVertices.keySet()) {
+            if (auxVertices.get(v).equals("blanco")) {
+                auxVertices.put(v, "amarillo");
+                Iterator<Integer> adyacentes = this.obtenerAdyacentes(v);
+                ArrayList<Integer> aux = new ArrayList<>();
+                aux.add(v);
+                while (adyacentes.hasNext()) {
+                    int x = adyacentes.next();
+                    if (auxVertices.get(x).equals("blanco")) {
+                        aux.add(x);
+                    } else if (auxVertices.get(x).equals("amarillo")) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
+
+//    /*EJERCICIO 5*/
+//    public ArrayList<Integer> verticesOptimos(Integer destino) {
+//        ArrayList<Integer> aux = new ArrayList<Integer>();
+//        Iterator<Integer> itVertices = this.obtenerVertices();
+//        while (itVertices.hasNext()) {
+//            Integer v = itVertices.next();
+//            if(existeCamino(v,destino)){
+//                aux.add(v);
+//            }
+//        }
+//        return aux;
+//    }
+//
+//    private boolean existeCamino(int origen, int destino) {
+//        Map<Integer,String> auxVertices = new HashMap<Integer,String>();
+//        Iterator<Integer> adyacentes = this.obtenerAdyacentes(origen);
+//        while (adyacentes.hasNext()) {
+//            auxVertices.put(adyacentes.next(), "blanco");
+//        }
+//        return false;
+//    }
 
     /*EJERCICIO 7 PARA CAMINO MAS CORTO*/
 
-    public ArrayList<Integer> obtenerCaminoMasCorto(int origen, int destino){
+    public ArrayList<Integer> obtenerCaminoMasCorto(int origen, int destino) {
         ArrayList<Integer> aux = new ArrayList<>();
-        Ejercicio7 caminos = new Ejercicio7(this,origen,destino);
-        List<List<Integer>> soluciones = caminos.caminos();;
+        Ejercicio7 caminos = new Ejercicio7(this, origen, destino);
+        List<List<Integer>> soluciones = caminos.caminos();
+        ;
         Iterator<List<Integer>> itSoluciones = soluciones.iterator();
-        while(itSoluciones.hasNext()){
+        while (itSoluciones.hasNext()) {
             List<Integer> a = itSoluciones.next();
-            if(aux.size() != 0) {
-                if(aux.size() > a.size()){
+            if (aux.size() != 0) {
+                if (aux.size() > a.size()) {
                     aux.clear();
                     aux.addAll(a);
                 }
-            }else{
+            } else {
                 aux.addAll(a);
             }
         }
         return aux;
     }
-    
+
     /*EJERCICIO 7 PARA CAMINO MAS LARGO*/
 
-    public ArrayList<Integer> obtenerCaminoMasLargo(int origen, int destino){
+    public ArrayList<Integer> obtenerCaminoMasLargo(int origen, int destino) {
         ArrayList<Integer> aux = new ArrayList<>();
-        Ejercicio7 caminos = new Ejercicio7(this,origen,destino);
-        List<List<Integer>> soluciones = caminos.caminos();;
+        Ejercicio7 caminos = new Ejercicio7(this, origen, destino);
+        List<List<Integer>> soluciones = caminos.caminos();
+        ;
         Iterator<List<Integer>> itSoluciones = soluciones.iterator();
-        while(itSoluciones.hasNext()){
+        while (itSoluciones.hasNext()) {
             List<Integer> a = itSoluciones.next();
-            if(aux.size() != 0) {
-                if(aux.size() < a.size()){
+            if (aux.size() != 0) {
+                if (aux.size() < a.size()) {
                     aux.clear();
                     aux.addAll(a);
                 }
-            }else{
+            } else {
                 aux.addAll(a);
             }
         }
