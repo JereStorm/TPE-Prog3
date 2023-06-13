@@ -1,4 +1,4 @@
-package Grafos;
+package Grafo;
 
 import java.util.Iterator;
 

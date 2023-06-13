@@ -1,5 +1,5 @@
-import Grafos.GrafoDirigido;
-import Grafos.GrafoNoDirigido;
+import Grafo.GrafoDirigido;
+import Grafo.GrafoNoDirigido;
 import Servicios.ServicioBFS;
 import Servicios.ServicioCaminos;
 import Servicios.ServicioDFS;

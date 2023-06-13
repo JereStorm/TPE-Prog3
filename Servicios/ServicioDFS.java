@@ -1,5 +1,6 @@
 package Servicios;
 
+import  Grafo.Grafo;
 import java.util.*;
 
 public class ServicioDFS {

@@ -1,4 +1,6 @@
 package Servicios;
+import Grafo.Grafo;
+import Grafo.Arco;
 
 import java.util.*;
 

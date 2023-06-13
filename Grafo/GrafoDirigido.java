@@ -1,4 +1,7 @@
-package Grafos;
+package Grafo;
+import Grafo.Grafo;
+import Grafo.Arco;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;

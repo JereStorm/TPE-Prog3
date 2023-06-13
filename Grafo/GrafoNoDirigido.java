@@ -1,6 +1,6 @@
-package Grafos;
+package Grafo;
 
-import Grafos.GrafoDirigido;
+import Grafo.GrafoDirigido;
 
 public class GrafoNoDirigido<T> extends GrafoDirigido<T> {
 

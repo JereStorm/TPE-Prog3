@@ -1,6 +1,6 @@
-import Grafos.Arco;
-import Grafos.Grafo;
-import Grafos.GrafoDirigido;
+import Grafo.Arco;
+import Grafo.Grafo;
+import Grafo.GrafoDirigido;
 
 import java.util.Iterator;
 
