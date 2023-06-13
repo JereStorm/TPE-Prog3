@@ -11,10 +11,13 @@ public class Arco<T> {
     private int verticeDestino;
     private T etiqueta;
 
+	private static int cantidad;
+
     public Arco(int verticeOrigen, int verticeDestino, T etiqueta) {
         this.verticeOrigen = verticeOrigen;
         this.verticeDestino = verticeDestino;
         this.etiqueta = etiqueta;
+		this.cantidad++;
     }
 
     public int getVerticeOrigen() {
@@ -25,6 +28,13 @@ public class Arco<T> {
         return verticeDestino;
     }
 
+	public void descontarCantidadDeArcos(){
+		this.cantidad--;
+	}
+
+	public int getCantidadArcos(){
+		return this.cantidad;
+	}
    
     @Override
 	public boolean equals(Object obj) {

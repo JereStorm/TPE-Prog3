@@ -5,7 +5,7 @@ public class pruebaServicio {
         GrafoNoDirigido<String> grafoNoDirigido  = new GrafoNoDirigido<String>();
         ServicioDFS dfs = new ServicioDFS(grafoDirigido);
         ServicioBFS bfs = new ServicioBFS(grafoDirigido);
-        ServicioCaminos caminos = new ServicioCaminos(grafoDirigido,1,6,3);
+        ServicioCaminos caminos = new ServicioCaminos(grafoDirigido,1,10,7);
 
         //*Agregando Vertices
         grafoDirigido.agregarVertice(1);
@@ -34,11 +34,14 @@ public class pruebaServicio {
         grafoDirigido.agregarArco(1, 2, " uno + dos = tres");
         grafoDirigido.agregarArco(1, 3, " uno + tres = cuatro");
         grafoDirigido.agregarArco(1, 9, " uno + nueve = diez");
+        grafoDirigido.agregarArco(9, 7, " uno + nueve = diez");
         grafoDirigido.agregarArco(2, 4, " dos + cuatro = seis");
+        grafoDirigido.agregarArco(2, 3, " dos + tres = cinco");
         grafoDirigido.agregarArco(3, 8, " tres + ocho = once");
         grafoDirigido.agregarArco(3, 4, " tres + cuatro = siete");
         grafoDirigido.agregarArco(3, 10, " tres + diez = trece");
         grafoDirigido.agregarArco(3, 7, " cuatro + siete = siete");
+        grafoDirigido.agregarArco(7, 10, " uno + nueve = diez");
         grafoDirigido.agregarArco(4, 1, " cuatro + uno = cinco");
         grafoDirigido.agregarArco(4, 5, " cuatro + siete = siete");
         grafoDirigido.agregarArco(4, 6, " cuatro + seis = siete");
@@ -58,17 +61,19 @@ public class pruebaServicio {
         grafoNoDirigido.agregarArco(10, 6, " seis + diez = diesiciete");
 
         //PRUEBAS SERVICIOS CON GRADO DIRIGIDO
-        System.out.println("dfs "+dfs.dfsForest());
+//        System.out.println("dfs "+dfs.dfsForest());
         System.out.println("bfs " +bfs.bfsForest());
-        System.out.println(caminos.caminos());
+        System.out.println("bfs " +bfs.bfsForest());
+
+//        System.out.println(caminos.caminos());
 
         //PRUEBAS SERVICIOS CON GRADO  NO DIRIGIDO
         dfs = new ServicioDFS(grafoNoDirigido);
         bfs = new ServicioBFS(grafoNoDirigido);
-        caminos = new ServicioCaminos(grafoNoDirigido,1,6,3);
-        System.out.println("dfs "+dfs.dfsForest());
+        caminos = new ServicioCaminos(grafoNoDirigido,2,10,3);
+//        System.out.println("dfs "+dfs.dfsForest());
         System.out.println("bfs " +bfs.bfsForest());
-        System.out.println(caminos.caminos());
+//        System.out.println(caminos.caminos());
 
 
     }

@@ -38,7 +38,7 @@ public class ServicioBFS {
         //* Si la fila no esta vacio
         if(!this.fila.isEmpty()){
             this.fila.add(this.fila.size()-1,v);
-            fila_visit.add(this.fila.size()-1,v);
+            fila_visit.add(v);
         }else{
             //* Si la fila esta vacia
             this.fila.add(v);

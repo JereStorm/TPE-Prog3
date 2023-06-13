@@ -19,8 +19,8 @@ public class GrafoDirigido<T> implements Grafo<T> {
     }
 
     /**
-     * Complejidad: O(v * a) donde v es la cantidad de vertices y a es la cantidad de arcos a
-     * borrar de ese vertice (this.borrarArco(itVertices.next(), verticeId)).
+     * Complejidad: O(v * a) donde v es la cantidad de vertices y a es la cantidad de arcos salientes de ese vertice
+     * (this.borrarArco(itVertices.next(), verticeId)).
      */
     @Override
     public void borrarVertice(int verticeId) {
@@ -52,9 +52,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
      */
     @Override
     public void borrarArco(int verticeId1, int verticeId2) {
-        if(this.existeArco(verticeId1,verticeId2)){
-            this.vertices.get(verticeId1).remove(this.obtenerArco(verticeId1, verticeId2));
-        }
+            Arco<T> aux = this.obtenerArco(verticeId1, verticeId2);
+            aux.descontarCantidadDeArcos();
+            this.vertices.get(verticeId1).remove(aux);
     }
 
     /**
@@ -110,11 +110,14 @@ public class GrafoDirigido<T> implements Grafo<T> {
      */
     @Override
     public int cantidadArcos() {
-        int cantArcos = 0;
+        Arco<T> aux = null;
         for (Integer integer : this.vertices.keySet()) {
-            cantArcos += this.vertices.get(integer).size();
+            if (this.vertices.get(integer).size() != 0 ) {
+                aux = this.vertices.get(integer).get(0);
+                return aux.getCantidadArcos();
+            }
         }
-        return cantArcos;
+        return 0;
     }
 
     /**

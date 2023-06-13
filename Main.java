@@ -83,14 +83,13 @@ public class Main {
         System.out.println();
 
         //*Borrar
-//        System.out.println("Cantidad de vertices: " + grafoDirigido.cantidadVertices());
-//        System.out.println("Cantidad de arcos: " + grafoDirigido.cantidadArcos());
-//        System.out.println();
-//        grafoDirigido.borrarVertice(4);
-//        System.out.println("Cantidad de vertices: " + grafoDirigido.cantidadVertices());
-//        System.out.println("Cantidad de arcos: " + grafoDirigido.cantidadArcos());
-//        System.out.println();
-//
+        System.out.println("Cantidad de vertices: " + grafoDirigido.cantidadVertices());
+        System.out.println("Cantidad de arcos: " + grafoDirigido.cantidadArcos());
+        grafoDirigido.borrarArco(4,5);
+        System.out.println("Cantidad de vertices: " + grafoDirigido.cantidadVertices());
+        System.out.println("Cantidad de arcos: " + grafoDirigido.cantidadArcos());
+        System.out.println();
+
 //        System.out.println("Arcos con iterator ");
 //        Iterator<Arco<String>> arcos2 = grafoDirigido.obtenerArcos();
 //        while (arcos2.hasNext()) {
@@ -99,12 +98,12 @@ public class Main {
 //        System.out.println();
 
         //*Obtener Vertices
-        System.out.println("Vertices con iterator ");
-        Iterator<Integer> vertices2 = grafoDirigido.obtenerVertices();
-        while (vertices2.hasNext()) {
-            System.out.println(" vertice : " + vertices2.next());
-        }
-        System.out.println();
+//        System.out.println("Vertices con iterator ");
+//        Iterator<Integer> vertices2 = grafoDirigido.obtenerVertices();
+//        while (vertices2.hasNext()) {
+//            System.out.println(" vertice : " + vertices2.next());
+//        }
+//        System.out.println();
 
     }
 }
