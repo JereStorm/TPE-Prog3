@@ -1,3 +1,7 @@
+import Grafos.Arco;
+import Grafos.Grafo;
+import Grafos.GrafoDirigido;
+
 import java.util.Iterator;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,

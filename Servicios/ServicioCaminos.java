@@ -1,4 +1,6 @@
- import java.util.*;
+package Servicios;
+
+import java.util.*;
 
 public class ServicioCaminos {
 

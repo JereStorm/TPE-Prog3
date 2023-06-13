@@ -1,4 +1,4 @@
-import java.util.Objects;
+package Grafos;
 
 /*
  * La clase arco representa un arco del grafo. Contiene un vertice origen, un vertice destino y una etiqueta.
