@@ -1,3 +1,5 @@
+package Pruebas;
+
 import Grafo.Arco;
 import Grafo.Grafo;
 import Grafo.GrafoDirigido;

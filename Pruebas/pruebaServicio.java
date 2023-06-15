@@ -1,3 +1,5 @@
+package Pruebas;
+
 import Grafo.GrafoDirigido;
 import Grafo.GrafoNoDirigido;
 import Servicios.ServicioBFS;
