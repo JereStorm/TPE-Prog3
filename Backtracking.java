@@ -36,8 +36,7 @@ public class Backtracking {
 			}
 
 		} else {
-			Arco<Integer> arco = this.dataSet.get(estado.getPosActual()); // obtenemos el elemento de la posActual en la
-																			// lista de dataSet
+			Arco<Integer> arco = this.dataSet.get(estado.getPosActual()); // obtenemos el elemento de la posActual en la lista de dataSet
 			int posActual = estado.getPosActual(); // obtenemos la posActual del estado
 			int kmActuales = estado.getKmActuales();
 
@@ -90,6 +89,14 @@ public class Backtracking {
 		return false;
 	}
 
+	private void setKmTotales(Integer kmActuales) {
+		this.kmTotales = kmActuales;
+	}
+
+	private Integer getKmTotales() {
+		return this.kmTotales;
+	}
+	
 //	private boolean esRedundanteArco(Arco<Integer> arco) {
 //		boolean destino = this.estacionesAccesibles.contains(arco.getVerticeDestino());
 //		boolean origen = this.estacionesAccesibles.contains(arco.getVerticeOrigen());
@@ -100,13 +107,5 @@ public class Backtracking {
 //		// Si alguno no esta conectado aun =>
 //		return false;
 //	}
-
-	private void setKmTotales(Integer kmActuales) {
-		this.kmTotales = kmActuales;
-	}
-
-	private Integer getKmTotales() {
-		return this.kmTotales;
-	}
 
 }
