@@ -15,7 +15,7 @@ public class Estado {
     }
 
     public Integer getKmActuales() {
-        return kmActuales;
+        return this.kmActuales;
     }
 
     public Integer getPosActual() {
@@ -23,11 +23,16 @@ public class Estado {
     }
 
     public List<Arco<Integer>> getParcial() {
-        List<Arco<Integer>> aux = new ArrayList<>();
-        aux.addAll(this.parcial);
-        return aux;
+        return this.parcial;
     }
 
+    public void addArco(Arco<Integer> a){
+        this.parcial.add(a);
+    }
+
+    public void removeArco(Arco<Integer> a){
+        this.parcial.remove(a);
+    }
     public void setParcial(List<Arco<Integer>> parcial) {
         this.parcial = parcial;
     }

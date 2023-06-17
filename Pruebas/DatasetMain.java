@@ -2,6 +2,7 @@ import Grafo.Arco;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class DatasetMain {
 
@@ -14,13 +15,10 @@ public class DatasetMain {
 
 
             ArrayList<Arco<Integer>> arcosDataSet  = reader.getArcos();
-            System.out.println(arcosDataSet);
             Backtracking backtracking = new Backtracking(arcosDataSet);
             System.out.println("Backtracking");
-            Iterator<Arco<Integer>>  a =  backtracking.backtracking().iterator();
-            while (a.hasNext()) {
-                System.out.print(a.next());// Como obtener la metrica
-            }
+            List<Arco<Integer>> solucion = backtracking.backtracking();
+            System.out.println(solucion);
             System.out.println(backtracking.getKmTotales());
             System.out.println(backtracking.getMetrica());
 
