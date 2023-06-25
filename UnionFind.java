@@ -1,6 +1,5 @@
 import java.util.Arrays;
 import java.util.NoSuchElementException;
-
 import static java.lang.System.out;
 
 public class UnionFind
@@ -32,7 +31,7 @@ public class UnionFind
 
         parent = new int[n];
         rank = new int[n];
-        for (int i = 0; i < n; ++i) {
+        for (int i = 0; i < n; ++i) {// 4
             parent[i] = i; // root of self
             rank[i] = 1; // contains only self
         }
@@ -48,10 +47,18 @@ public class UnionFind
      */
     public int find(int i)
     {
+
         if (i < 0 || i > parent.length)
             throw new NoSuchElementException("Invalid element");
 
         return root(i);
+    }
+
+    @Override
+    public String toString() {
+        return "UnionFind{" +
+                "parent=" + Arrays.toString(parent) +
+                '}';
     }
 
     /**
@@ -61,6 +68,7 @@ public class UnionFind
      * @param v
      * @return the representative of union
      */
+    // 1 2
     public int union(int u, int v)
     {
         // Replace elements by representatives
@@ -95,9 +103,12 @@ public class UnionFind
      * Find representative (root) of element u
      */
     private int root(int u)
-    {
-        while (parent[u] != u)
+    {   // 3 != 3
+        // 2
+
+        while (parent[u] != u){
             u = parent[u];
+        }
         return u;
     }
 

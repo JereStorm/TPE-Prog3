@@ -1,5 +1,6 @@
 import Grafo.Arco;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,8 @@ public class Estado {
 
     private List<Arco<Integer>> parcial;
     Integer kmActuales, posActual;
+
+    ArrayList<ArrayList<Integer>> aux;
 
     public Estado(){
         this.kmActuales = 0;
