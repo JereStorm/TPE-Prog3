@@ -1,3 +1,4 @@
+
 import Grafo.Arco;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ public class DatasetMain {
 
         public static void main(String[] args) {
             // PATH/AL/ARCHIVO
-            String path = "Datasets/dataset1.txt";
+            String path = "src/Datasets/dataset1.txt";
             CSVReader reader = new CSVReader(path);
             //reader.read();
 
@@ -16,7 +17,7 @@ public class DatasetMain {
             Backtracking backtracking = new Backtracking(arcosDataSet);
             System.out.println("Backtracking");
             List<Arco<Integer>> solucion = backtracking.backtracking();
-            System.out.println(solucion);
+            System.out.println("Data set main SOLUCION: "+solucion);
             System.out.println( "Kilometros totales: "+backtracking.getKmTotales());
             System.out.println( "Metrica: " + backtracking.getMetrica());
 

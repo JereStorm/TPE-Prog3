@@ -9,8 +9,6 @@ public class Estado {
     private List<Arco<Integer>> parcial;
     Integer kmActuales, posActual;
 
-    ArrayList<ArrayList<Integer>> aux;
-
     public Estado(){
         this.kmActuales = 0;
         this.posActual = 0;
@@ -30,6 +28,7 @@ public class Estado {
     }
 
     public void addArco(Arco<Integer> a){
+    
         this.parcial.add(a);
     }
 
