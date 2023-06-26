@@ -1,6 +1,5 @@
 import Grafo.Arco;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +15,7 @@ public class Estado {
         this.parcial = new ArrayList<Arco<Integer>>();
 		this.unionFind = new UnionFind(cantEstaciones);// le pasamos la cant de estaciones
     }
+    
     public UnionFind getUnionFind() {
     	return this.unionFind;
     }
@@ -42,12 +42,7 @@ public class Estado {
     public void setUnionFind(UnionFind nuevo) {
     	this.unionFind = nuevo;
     }
-    @Override
-	public String toString() {
-		return "Estado [parcial=" + parcial + ", kmActuales=" + kmActuales + ", posActual=" + posActual
-			+", "	+ unionFind + "]";
-	}
-
+   
 	public void addArco(Arco<Integer> a){
     
         this.parcial.add(a);
@@ -67,4 +62,11 @@ public class Estado {
     public void setKmActuales(Integer kmActuales) {
         this.kmActuales = kmActuales;
     }
+    
+    @Override
+   	public String toString() {
+   		return "Estado [parcial=" + parcial + ", kmActuales=" + kmActuales + ", posActual=" + posActual
+   			+", "	+ unionFind + "]";
+   	}
+
 }

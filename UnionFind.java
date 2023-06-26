@@ -161,11 +161,14 @@ public class UnionFind implements Cloneable {
 	}
 
 	@Override
-	protected Object clone() throws CloneNotSupportedException {
-
-		UnionFind nueva = new UnionFind(this.num);
-		nueva.setParent(this.parent);
-		nueva.setRank(this.rank);
-		return nueva;
-	}
+	public UnionFind clone() {
+        try {
+            UnionFind cloned = (UnionFind) super.clone();
+            cloned.parent = parent.clone();
+            cloned.rank = rank.clone();
+            return cloned;
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
