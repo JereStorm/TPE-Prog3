@@ -8,13 +8,25 @@ public class Estado {
 
     private List<Arco<Integer>> parcial;
     Integer kmActuales, posActual;
+	private UnionFind unionFind;
 
-    public Estado(){
+    public Estado(int cantEstaciones){
         this.kmActuales = 0;
         this.posActual = 0;
         this.parcial = new ArrayList<Arco<Integer>>();
+		this.unionFind = new UnionFind(cantEstaciones);// le pasamos la cant de estaciones
+    }
+    public UnionFind getUnionFind() {
+    	return this.unionFind;
     }
 
+    public int obtenerCantSets(){
+    	return unionFind.numberOfSets();
+    }
+    public String mostrarUnionFind() {
+    	return this.unionFind.toString();
+    }
+    
     public Integer getKmActuales() {
         return this.kmActuales;
     }
@@ -27,7 +39,16 @@ public class Estado {
         return this.parcial;
     }
 
-    public void addArco(Arco<Integer> a){
+    public void setUnionFind(UnionFind nuevo) {
+    	this.unionFind = nuevo;
+    }
+    @Override
+	public String toString() {
+		return "Estado [parcial=" + parcial + ", kmActuales=" + kmActuales + ", posActual=" + posActual
+			+", "	+ unionFind + "]";
+	}
+
+	public void addArco(Arco<Integer> a){
     
         this.parcial.add(a);
     }

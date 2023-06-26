@@ -1,156 +1,171 @@
 import java.util.Arrays;
 import java.util.NoSuchElementException;
-import static java.lang.System.out;
 
-public class UnionFind
-{
-    /**
-     * parent[i] points to parent of element i or to self.
-     */
-    private int[] parent;
+public class UnionFind implements Cloneable {
+	/**
+	 * parent[i] points to parent of element i or to self.
+	 */
+	private int[] parent;
 
-    /**
-     * rank[i] holds the rank (cardinality) of root element i.
-     */
-    private int[] rank;
+	/**
+	 * rank[i] holds the rank (cardinality) of root element i.
+	 */
+	private int[] rank;
 
-    /**
-     * The number of disjoint sets
-     */
-    private int num;
+	/**
+	 * The number of disjoint sets
+	 */
+	private int num;
 
-    /**
-     * Create n disjoint sets containing a single element numbered from 0 to n - 1.
-     *
-     * @param n
-     */
-    public UnionFind(int n)
-    {
-        if (n <= 0)
-            throw new IllegalArgumentException("Expected n > 0");
+	/**
+	 * Create n disjoint sets containing a single element numbered from 0 to n - 1.
+	 *
+	 * @param n
+	 */
+	public UnionFind(int n) {
+		if (n <= 0)
+			throw new IllegalArgumentException("Expected n > 0");
 
-        parent = new int[n];
-        rank = new int[n];
-        for (int i = 0; i < n; ++i) {// 4
-            parent[i] = i; // root of self
-            rank[i] = 1; // contains only self
-        }
+		parent = new int[n];
+		rank = new int[n];
+		for (int i = 0; i < n; ++i) {// 4
+			parent[i] = i; // root of self
+			rank[i] = 1; // contains only self
+		}
 
-        num = n;
-    }
+		num = n;
+	}
 
-    /**
-     * Find representative element (i.e root of tree) for element i
-     *
-     * @param i
-     * @return
-     */
-    public int find(int i)
-    {
+	public UnionFind copy() {
+		UnionFind nuevo = new UnionFind(this.num);
 
-        if (i < 0 || i > parent.length)
-            throw new NoSuchElementException("Invalid element");
+		return nuevo;
+	}
 
-        return root(i);
-    }
+	protected void setParent(int[] padres) {
+		this.parent = padres;
+	}
 
-    @Override
-    public String toString() {
-        return "UnionFind{" +
-                "parent=" + Arrays.toString(parent) +
-                '}';
-    }
+	protected void setRank(int[] rank) {
+		this.rank = rank;
+	}
 
-    /**
-     * Merge set containing u with the one containing u.
-     *
-     * @param u
-     * @param v
-     * @return the representative of union
-     */
-    // 1 2
-    public int union(int u, int v)
-    {
-        // Replace elements by representatives
+	/**
+	 * Find representative element (i.e root of tree) for element i
+	 *
+	 * @param i
+	 * @return
+	 */
+	public int find(int i) {
 
-        u = find(u);
-        v = find(v);
+		if (i < 0 || i > parent.length)
+			throw new NoSuchElementException("Invalid element");
 
-        if (u == v)
-            return u; // no-op
+		return root(i);
+	}
 
-        // Make smaller tree u point to v
+	@Override
+	public String toString() {
+		return "UnionFind{" + "parent=" + Arrays.toString(parent) + '}';
+	}
 
-        if (rank[v] < rank[u]) {
-            int t = v; v = u; u = t; // swap u, v
-        }
+	/**
+	 * Merge set containing u with the one containing u.
+	 *
+	 * @param u
+	 * @param v
+	 * @return the representative of union
+	 */
+	// 1 2
+	public int union(int u, int v) {
+		// Replace elements by representatives
 
-        parent[u] = v;
-        rank[v] += rank[u];
-        rank[u] = -1;
+		u = find(u);
+		v = find(v);
 
-        num--;
+		if (u == v)
+			return u; // no-op
 
-        return v;
-    }
+		// Make smaller tree u point to v
 
-    public int numberOfSets()
-    {
-        return num;
-    }
+		if (rank[v] < rank[u]) {
+			int t = v;
+			v = u;
+			u = t; // swap u, v
+		}
 
-    /**
-     * Find representative (root) of element u
-     */
-    private int root(int u)
-    {   // 3 != 3
-        // 2
+		parent[u] = v;
+		rank[v] += rank[u];
+		rank[u] = -1;
 
-        while (parent[u] != u){
-            u = parent[u];
-        }
-        return u;
-    }
+		num--;
 
-    /**
-     * Find root of element u, while compressing path of visited nodes.
-     * <p>
-     * This is an optimized version of {@link UnionFind#root(int)} which modifies the
-     * internal tree as it traverses it (moving from u to root).
-     */
-    @SuppressWarnings("unused")
-    private int root1(int u)
-    {
-        int p = parent[u];
-        if (p == u)
-            return u;
+		return v;
+	}
 
-        // So, u is a non-root node with parent p
-        do {
-            int p1 = parent[p];
-            if (p == p1) {
-                // The root is found at p
-                u = p;
-                break;
-            } else {
-                // Must move 1 level up
-                parent[u] = p1; // compress path for u (minus 1)
-                u = p;
-                p = p1;
-            }
-        } while (true);
+	public int numberOfSets() {
+		return num;
+	}
 
-        return u;
-    }
+	/**
+	 * Find representative (root) of element u
+	 */
+	private int root(int u) { // 3 != 3
+								// 2
 
-    /**
-     * Get rank (i.e. cardinality) of the set containing element u
-     * @param u
-     * @return
-     */
-    public int rank(int u)
-    {
-        u = root(u);
-        return rank[u];
-    }
+		while (parent[u] != u) {
+			u = parent[u];
+		}
+		return u;
+	}
+
+	/**
+	 * Find root of element u, while compressing path of visited nodes.
+	 * <p>
+	 * This is an optimized version of {@link UnionFind#root(int)} which modifies
+	 * the internal tree as it traverses it (moving from u to root).
+	 */
+	@SuppressWarnings("unused")
+	private int root1(int u) {
+		int p = parent[u];
+		if (p == u)
+			return u;
+
+		// So, u is a non-root node with parent p
+		do {
+			int p1 = parent[p];
+			if (p == p1) {
+				// The root is found at p
+				u = p;
+				break;
+			} else {
+				// Must move 1 level up
+				parent[u] = p1; // compress path for u (minus 1)
+				u = p;
+				p = p1;
+			}
+		} while (true);
+
+		return u;
+	}
+
+	/**
+	 * Get rank (i.e. cardinality) of the set containing element u
+	 * 
+	 * @param u
+	 * @return
+	 */
+	public int rank(int u) {
+		u = root(u);
+		return rank[u];
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+
+		UnionFind nueva = new UnionFind(this.num);
+		nueva.setParent(this.parent);
+		nueva.setRank(this.rank);
+		return nueva;
+	}
 }

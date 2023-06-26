@@ -9,8 +9,6 @@ public class Backtracking {
 
 	private Integer kmTotales, metrica;
 
-	private UnionFind unionFind;
-	private Estado estado;
 	private int cantEstaciones;
 
 	private ArrayList<Integer> estacionesAccesibles;
@@ -22,75 +20,81 @@ public class Backtracking {
 		this.metrica = 0;
 		this.estacionesAccesibles = this.getEstaciones();
 		this.cantEstaciones = this.estacionesAccesibles.size();
-		this.unionFind = new UnionFind(this.estacionesAccesibles.size());// le pasamos la cant de estaciones
 
 	}
 
 	List<Arco<Integer>> backtracking() {
-		this.estado = new Estado(); // inicializamos el estado inicial
+		Estado estado = new Estado(this.cantEstaciones);
+		// inicializamos el estado inicial
 		this.backtracking(estado); // Y le pasamos el estado inicial al metodo backtracking
 		return this.mejorSolucion;
 	}
 
-	private void backtracking(Estado estado) {
+	private void backtracking(Estado e) {
 		this.metrica++;
-		System.out.println("Metrica: " + this.metrica + " Sol Parcial: " + estado.getParcial());
-		if (estado.getPosActual() == this.dataSet.size()) {
+		System.out.println("Metrica: " + this.metrica + " Sol Parcial: " + e.getParcial() + " Numero de Sets de UnionFind: "+e.getUnionFind().numberOfSets() + " "+e.getUnionFind());
+		if (e.getPosActual() == this.dataSet.size()) {
 			System.out.println("-------------------- DECISIONES TOMADAS");
-			System.out.println("Num Sets: " + this.unionFind.numberOfSets() + " y UnionFind = " + this.unionFind);
-			if (this.unionFind.numberOfSets() == 1 && estado.getParcial().size() == this.cantEstaciones - 1) {
+			System.out.println("Num Sets: " + e.getUnionFind().numberOfSets() + " y UnionFind = " + e.getUnionFind());
+			System.out.println("Sol Parcial " + e.getParcial());
+			if (e.getUnionFind().numberOfSets() == 1 && e.getParcial().size() == this.cantEstaciones - 1) {
 				System.out.println("-------------------- UN SOLO SET DE UNION FIND");
 				if (this.mejorSolucion.isEmpty()) {
-					System.out.println("Primer solucion" + estado.getParcial());
-					this.mejorSolucion.addAll(estado.getParcial());
-					this.setKmTotales(estado.getKmActuales());
+					System.out.println("PRIMER SOLUCION" + e.getParcial());
+					this.mejorSolucion.addAll(e.getParcial());
+					this.setKmTotales(e.getKmActuales());
 				}
-				if (estado.getKmActuales() < this.getKmTotales()) {
-					System.out.println("---------------SOLUCION OPTIMA" + estado.getKmActuales());
+				if (e.getKmActuales() < this.getKmTotales()) {
+					System.out.println("---------------SOLUCION OPTIMA" + e.getKmActuales());
 					this.mejorSolucion.clear();
-					this.mejorSolucion.addAll(estado.getParcial());
+					this.mejorSolucion.addAll(e.getParcial());
 					System.out.println(this.mejorSolucion + " SOLUCION");
-					this.setKmTotales(estado.getKmActuales());
+					this.setKmTotales(e.getKmActuales());
 				}
 			}
 		} else {
-			Integer posActual = estado.getPosActual(); // obtenemos la posActual del estado
-			Integer kmActuales = estado.getKmActuales();
+			Integer posActual = e.getPosActual(); // obtenemos la posActual del estado
+			Integer kmActuales = e.getKmActuales();
 			Arco<Integer> arco = this.dataSet.get(posActual); // obtenemos el elemento de la posActual en la lista de
-																// dataSet
-			if (this.addArcoAccesible(arco, estado)) {
 
-				estado.addArco(arco);// anadimos el arco a la solucion
-				estado.setKmActuales(kmActuales + arco.getEtiqueta()); // getEtiqueta nos devuelve el valor de la
-																		// etiqueta (osea los km) del arco,sumamos la
-																		// cantidad de km a la solucion
-				estado.setPosActual(posActual + 1);
-
-				this.backtracking(estado);
-
-				estado.removeArco(arco);
-				estado.setKmActuales(kmActuales - arco.getEtiqueta());
-				estado.setPosActual(posActual - 1);
-			}													// Si utilizamos el arco en la solucion
-
-			// No utilizamos el arco en la solucion
-			estado.setPosActual(posActual + 1);
-			this.backtracking(estado);
-			estado.setPosActual(posActual - 1);
 			
-			
-			
+			if(this.addArcoAccesible(arco, e)) {
+				try {
+					UnionFind aux = (UnionFind) e.getUnionFind().clone();
+					e.getUnionFind().union(this.estacionesAccesibles.indexOf(arco.getVerticeOrigen()),
+							this.estacionesAccesibles.indexOf(arco.getVerticeDestino()));
+
+					e.addArco(arco);
+					e.setKmActuales(kmActuales + arco.getEtiqueta());
+					e.setPosActual(posActual + 1);
+					
+					System.out.println("ANTES DE RECURSION: "+ e);
+					
+					this.backtracking(e);
+
+					
+					e.setUnionFind(aux);
+
+					e.removeArco(arco);
+					e.setKmActuales(kmActuales);
+					e.setPosActual(posActual);
+					System.out.println("DESPUES DE RECURSION: "+ e);
+				} catch (Exception e2) {
+
+				}
+			}
+		
+			e.setPosActual(posActual + 1);
+			this.backtracking(e);
+			e.setPosActual(posActual);
 		}
 	}
 
 	private boolean addArcoAccesible(Arco<Integer> arco, Estado e) {
-		int u = this.unionFind.find(this.estacionesAccesibles.indexOf(arco.getVerticeDestino())); // 2
-		int v = this.unionFind.find(this.estacionesAccesibles.indexOf(arco.getVerticeOrigen())); // 1
+		int u = e.getUnionFind().find(this.estacionesAccesibles.indexOf(arco.getVerticeDestino())); // 2
+		int v = e.getUnionFind().find(this.estacionesAccesibles.indexOf(arco.getVerticeOrigen())); // 1
 
 		if (v != u) {
-			System.out.println("ARCO VALIDO: " + arco);
-			unionFind.union(this.estacionesAccesibles.indexOf(arco.getVerticeOrigen()),
-					this.estacionesAccesibles.indexOf(arco.getVerticeDestino()));
 			return true;
 		}
 		return false;
@@ -106,17 +110,8 @@ public class Backtracking {
 				aux.add(a.getVerticeDestino());
 			}
 		}
-		System.out.println(aux.size() + "size estaciones");
+		System.out.println(aux.size() + " size estaciones");
 		return aux;
-	}
-
-	private boolean esConexo(Estado estado) {
-		// TODO Auto-generated method stub
-		if (this.dataSet.size() == this.estacionesAccesibles.size()) {
-			return true;
-		}
-
-		return false;
 	}
 
 	private void setKmTotales(Integer kmActuales) {
