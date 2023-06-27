@@ -54,16 +54,16 @@ public class Backtracking {
 			Integer kmActuales = e.getKmActuales();
 			Arco<Integer> tunel = this.dataSet.get(posActual);
 
-			int decisionesPorTomar = this.dataSet.size() - posActual;
-			boolean poda = decisionesPorTomar < this.cantEstaciones - 1; //si las decisiones que me quedan por tomar son menores
-																		 //que la cantidad minima de conexiones que requiero
-			if(!poda || e.getParcial().size() - decisionesPorTomar >= 0) { // y
+			// si las decisiones que me quedan por tomar son menores
+			// que la cantidad minima de conexiones que requiero
+
+			if (this.noFaltanCandidatos(posActual, e)) {
 				e.setPosActual(posActual + 1);
-				this.backtracking(e);				
+				this.backtracking(e);
 				e.setPosActual(posActual);
 			}
 
-			if (this.addArcoAccesible(tunel, e) && (e.getKmActuales() + tunel.getEtiqueta() < this.kmTotales)) {
+			if (this.addArcoAccesible(tunel, e) && esSolucionFactible(e, tunel)) {
 
 				UnionFind aux = (UnionFind) e.getUnionFind().clone();
 				e.getUnionFind().union(this.estaciones.indexOf(tunel.getVerticeOrigen()),
@@ -72,10 +72,8 @@ public class Backtracking {
 				e.addArco(tunel);
 				e.setKmActuales(kmActuales + tunel.getEtiqueta());
 				e.setPosActual(posActual + 1);
-				
-								
+
 				this.backtracking(e);
-				
 
 				e.setUnionFind(aux);
 
@@ -85,6 +83,24 @@ public class Backtracking {
 			}
 
 		}
+	}
+
+	public boolean esSolucionFactible(Estado e, Arco<Integer> tunel) {
+		return e.getKmActuales() + tunel.getEtiqueta() < this.kmTotales;
+	}
+
+	private boolean noFaltanCandidatos(Integer posActual,Estado e) {
+		//calculamos la cantidad de decisiones disponibles
+		int decisionesPorTomar = this.dataSet.size() - posActual;
+		//verificamos que estas decisiones disponibles  con el minimo de 
+		boolean poda = decisionesPorTomar < this.cantEstaciones - 1;
+
+		if(poda && e.getParcial().size() - decisionesPorTomar < 0) {
+			return false;
+		}
+		
+		return true;
+	
 	}
 
 	private boolean addArcoAccesible(Arco<Integer> tunel, Estado e) {
@@ -110,14 +126,14 @@ public class Backtracking {
 
 		return aux;
 	}
-	
+
 	private void setKmTotales(List<Arco<Integer>> tuneles) {
 		int sumaTotal = 0;
-		for(Arco<Integer> x : tuneles) {
+		for (Arco<Integer> x : tuneles) {
 			sumaTotal += x.getEtiqueta();
 		}
 		this.kmTotales = sumaTotal;
-		
+
 	}
 
 	private void setKmTotales(Integer kmActuales) {
