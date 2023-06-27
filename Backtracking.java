@@ -63,7 +63,7 @@ public class Backtracking {
 				e.setPosActual(posActual);
 			}
 
-			if (this.addArcoAccesible(tunel, e) && esSolucionFactible(e, tunel)) {
+			if (this.addArcoAccesible(tunel, e) && this.esSolucionFactible(e, tunel)) {
 
 				UnionFind aux = (UnionFind) e.getUnionFind().clone();
 				e.getUnionFind().union(this.estaciones.indexOf(tunel.getVerticeOrigen()),
@@ -85,7 +85,7 @@ public class Backtracking {
 		}
 	}
 
-	public boolean esSolucionFactible(Estado e, Arco<Integer> tunel) {
+	private boolean esSolucionFactible(Estado e, Arco<Integer> tunel) {
 		return e.getKmActuales() + tunel.getEtiqueta() < this.kmTotales;
 	}
 
@@ -102,7 +102,6 @@ public class Backtracking {
 		return true;
 	
 	}
-
 	private boolean addArcoAccesible(Arco<Integer> tunel, Estado e) {
 		int u = e.getUnionFind().find(this.estaciones.indexOf(tunel.getVerticeDestino()));
 		int v = e.getUnionFind().find(this.estaciones.indexOf(tunel.getVerticeOrigen()));
