@@ -11,15 +11,15 @@ public class Backtracking {
 
 	private int cantEstaciones;
 
-	private ArrayList<Integer> estacionesAccesibles;
+	private ArrayList<Integer> estaciones;
 
 	public Backtracking(List<Arco<Integer>> dataSet) {
 		this.dataSet = dataSet;
 		this.mejorSolucion = new ArrayList<Arco<Integer>>();
 		this.kmTotales = -1;
 		this.metrica = 0;
-		this.estacionesAccesibles = this.getEstaciones();
-		this.cantEstaciones = this.estacionesAccesibles.size();
+		this.estaciones = this.getEstaciones();
+		this.cantEstaciones = this.estaciones.size();
 
 	}
 
@@ -31,56 +31,58 @@ public class Backtracking {
 
 	private void backtracking(Estado e) {
 		this.metrica++;
-		
+
 		if (e.getPosActual() == this.dataSet.size()) {
 
 			if (e.getUnionFind().numberOfSets() == 1 && e.getParcial().size() == this.cantEstaciones - 1) {
-				
+
 				if (this.mejorSolucion.isEmpty()) {
 					this.mejorSolucion.addAll(e.getParcial());
 					this.setKmTotales(e.getKmActuales());
 				}
-				
-				if (e.getKmActuales() < this.getKmTotales()) {	
+
+				if (e.getKmActuales() < this.getKmTotales()) {
 					this.mejorSolucion.clear();
 					this.mejorSolucion.addAll(e.getParcial());
 					this.setKmTotales(e.getKmActuales());
 				}
 			}
 		} else {
-			Integer posActual = e.getPosActual(); 
+			Integer posActual = e.getPosActual();
 			Integer kmActuales = e.getKmActuales();
-			Arco<Integer> arco = this.dataSet.get(posActual); 
+			Arco<Integer> tunel = this.dataSet.get(posActual);
 
+			e.setPosActual(posActual + 1);
 			
-			if(this.addArcoAccesible(arco, e)) {
-		
-				UnionFind aux = (UnionFind) e.getUnionFind().clone();
-				e.getUnionFind().union(this.estacionesAccesibles.indexOf(arco.getVerticeOrigen()),
-						this.estacionesAccesibles.indexOf(arco.getVerticeDestino()));
+				this.backtracking(e);
+			
+			e.setPosActual(posActual);
 
-				e.addArco(arco);
-				e.setKmActuales(kmActuales + arco.getEtiqueta());
+			if (this.addArcoAccesible(tunel, e)) {
+
+				UnionFind aux = (UnionFind) e.getUnionFind().clone();
+				e.getUnionFind().union(this.estaciones.indexOf(tunel.getVerticeOrigen()),
+						this.estaciones.indexOf(tunel.getVerticeDestino()));
+
+				e.addArco(tunel);
+				e.setKmActuales(kmActuales + tunel.getEtiqueta());
 				e.setPosActual(posActual + 1);
 
 				this.backtracking(e);
 
 				e.setUnionFind(aux);
 
-				e.removeArco(arco);
+				e.removeArco(tunel);
 				e.setKmActuales(kmActuales);
 				e.setPosActual(posActual);
 			}
-		
-			e.setPosActual(posActual + 1);
-			this.backtracking(e);
-			e.setPosActual(posActual);
+
 		}
 	}
 
-	private boolean addArcoAccesible(Arco<Integer> arco, Estado e) {
-		int u = e.getUnionFind().find(this.estacionesAccesibles.indexOf(arco.getVerticeDestino()));
-		int v = e.getUnionFind().find(this.estacionesAccesibles.indexOf(arco.getVerticeOrigen())); 
+	private boolean addArcoAccesible(Arco<Integer> tunel, Estado e) {
+		int u = e.getUnionFind().find(this.estaciones.indexOf(tunel.getVerticeDestino()));
+		int v = e.getUnionFind().find(this.estaciones.indexOf(tunel.getVerticeOrigen()));
 
 		if (v != u) {
 			return true;
@@ -88,7 +90,7 @@ public class Backtracking {
 		return false;
 	}
 
-	public ArrayList<Integer> getEstaciones() {
+	private ArrayList<Integer> getEstaciones() {
 		ArrayList<Integer> aux = new ArrayList<>();
 		for (Arco<Integer> a : this.dataSet) {
 			if (!aux.contains(a.getVerticeOrigen())) {

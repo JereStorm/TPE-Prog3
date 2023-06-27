@@ -6,7 +6,7 @@ import java.util.List;
 public class Estado {
 
     private List<Arco<Integer>> parcial;
-    Integer kmActuales, posActual;
+    private Integer kmActuales, posActual;
 	private UnionFind unionFind;
 
     public Estado(int cantEstaciones){

@@ -8,7 +8,7 @@ public class DatasetMain {
 
         public static void main(String[] args) {
             // PATH/AL/ARCHIVO
-            String path = "src/Datasets/dataset2.txt";
+            String path = "src/Datasets/dataset1.txt";
             CSVReader reader = new CSVReader(path);
 
             ArrayList<Arco<Integer>> arcosDataSet  = reader.getArcos();
