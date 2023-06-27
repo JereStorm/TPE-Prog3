@@ -1,6 +1,7 @@
 import Grafo.Arco;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Backtracking {
@@ -24,6 +25,7 @@ public class Backtracking {
 	}
 
 	List<Arco<Integer>> backtracking() {
+		this.setKmTotales(this.dataSet);
 		Estado estado = new Estado(this.cantEstaciones);
 		this.backtracking(estado);
 		return this.mejorSolucion;
@@ -52,13 +54,16 @@ public class Backtracking {
 			Integer kmActuales = e.getKmActuales();
 			Arco<Integer> tunel = this.dataSet.get(posActual);
 
-			e.setPosActual(posActual + 1);
-			
-				this.backtracking(e);
-			
-			e.setPosActual(posActual);
+			int decisionesPorTomar = this.dataSet.size() - posActual;
+			boolean poda = decisionesPorTomar < this.cantEstaciones - 1; //si las decisiones que me quedan por tomar son menores
+																		 //que la cantidad minima de conexiones que requiero
+			if(!poda || e.getParcial().size() - decisionesPorTomar >= 0) { // y
+				e.setPosActual(posActual + 1);
+				this.backtracking(e);				
+				e.setPosActual(posActual);
+			}
 
-			if (this.addArcoAccesible(tunel, e)) {
+			if (this.addArcoAccesible(tunel, e) && (e.getKmActuales() + tunel.getEtiqueta() < this.kmTotales)) {
 
 				UnionFind aux = (UnionFind) e.getUnionFind().clone();
 				e.getUnionFind().union(this.estaciones.indexOf(tunel.getVerticeOrigen()),
@@ -67,8 +72,10 @@ public class Backtracking {
 				e.addArco(tunel);
 				e.setKmActuales(kmActuales + tunel.getEtiqueta());
 				e.setPosActual(posActual + 1);
-
+				
+								
 				this.backtracking(e);
+				
 
 				e.setUnionFind(aux);
 
@@ -102,6 +109,15 @@ public class Backtracking {
 		}
 
 		return aux;
+	}
+	
+	private void setKmTotales(List<Arco<Integer>> tuneles) {
+		int sumaTotal = 0;
+		for(Arco<Integer> x : tuneles) {
+			sumaTotal += x.getEtiqueta();
+		}
+		this.kmTotales = sumaTotal;
+		
 	}
 
 	private void setKmTotales(Integer kmActuales) {
