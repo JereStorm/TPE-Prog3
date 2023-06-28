@@ -9,7 +9,7 @@ public class DatasetMain {
 	public static void main(String[] args) {
 		// PATH/AL/ARCHIVO
 		String pathLau = "./Datasets/dataset1.txt";
-		String path = "src/Datasets/dataset1.txt";
+		String path = "src/Datasets/dataset3.txt";
 
 		CSVReader reader = new CSVReader(path);
 

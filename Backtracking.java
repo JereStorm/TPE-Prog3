@@ -1,16 +1,13 @@
 import Grafo.Arco;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Backtracking {
 
 	private List<Arco<Integer>> mejorSolucion, dataSet;
 
-	private Integer kmTotales, metrica;
-
-	private int cantEstaciones;
+	private Integer kmTotales, metrica, cantEstaciones;
 
 	private ArrayList<Integer> estaciones;
 
@@ -63,6 +60,7 @@ public class Backtracking {
 				e.setPosActual(posActual);
 			}
 			
+			//Si el tunel es optimo y no sobrepasa a los km de la mejor solucion
 			if (this.addArcoAccesible(tunel, e) && this.esSolucionFactible(e, tunel)) {
 
 				UnionFind aux = (UnionFind) e.getUnionFind().clone();
@@ -85,9 +83,11 @@ public class Backtracking {
 		}
 	}
 
-	// ----------------------------------- PODAS
-	// -----------------------------------------
-	// -----------------------------------------
+	/*
+	 *---------
+	 *------------- PODAS
+	 *---------
+	 */
 
 	private boolean esSolucionFactible(Estado e, Arco<Integer> tunel) {
 		return e.getKmActuales() + tunel.getEtiqueta() < this.kmTotales;
@@ -117,6 +117,12 @@ public class Backtracking {
 		return false;
 	}
 
+	/*
+	 *---------
+	 *------------- METODOS DE CLASE 
+	 *---------
+	 */
+	
 	private ArrayList<Integer> getEstaciones() {
 		ArrayList<Integer> aux = new ArrayList<>();
 		for (Arco<Integer> a : this.dataSet) {
@@ -130,7 +136,6 @@ public class Backtracking {
 
 		return aux;
 	}
-
 	private void setKmTotales(List<Arco<Integer>> tuneles) {
 		int sumaTotal = 0;
 		for (Arco<Integer> x : tuneles) {
