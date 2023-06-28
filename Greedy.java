@@ -37,7 +37,6 @@ public class Greedy {
         Iterator<Arco<Integer>> itCandidatos = this.candidatos.iterator(); // obtenemos un iterador de los candidatos
 
         while(itCandidatos.hasNext() && solucion.size() <= this.estaciones.size() - 1) {
-
             this.metrica++;
             Arco<Integer> aux = itCandidatos.next(); // tomamos el primer candidato
             this.candidatos.remove(aux);// y lo borramos
