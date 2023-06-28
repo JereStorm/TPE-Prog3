@@ -31,24 +31,21 @@ public class Greedy {
 
     public List<Arco<Integer>> greedy() {
         List<Arco<Integer>> solucion = new ArrayList<>(); // creamos la solucion vacia
-        this.unionFind = new UnionFind(this.estaciones.size()); // creamos el unionFind con la cant de estaciones
+
         this.ordenarCandidatosPorMenorKM();// ordenamos los candidatos de menor a mayor
+        
+        this.unionFind = new UnionFind(this.estaciones.size()); // creamos el unionFind con la cant de estaciones
 
-        Iterator<Arco<Integer>> itCandidatos = this.candidatos.iterator(); // obtenemos un iterador de los candidatos
-
-        while(itCandidatos.hasNext() && solucion.size() <= this.estaciones.size() - 1) {
+        while(!this.candidatos.isEmpty() && solucion.size() < this.estaciones.size() - 1) {
+          
+            Arco<Integer> aux = this.candidatos.remove(0); 	// tomamos el primer candidato y lo borramos				
             this.metrica++;
-            Arco<Integer> aux = itCandidatos.next(); // tomamos el primer candidato
-            this.candidatos.remove(aux);// y lo borramos
-            itCandidatos = this.candidatos.iterator(); // actualizamos el iterator luego de borrar el candidato seleccionado de la lista
-
+            
             // si no es un arco redundante
             if(this.addArcoAccesible(aux)){
-
                 solucion.add(aux);
                 this.unionFind.union(this.estaciones.indexOf(aux.getVerticeOrigen()), this.estaciones.indexOf(aux.getVerticeDestino()));
                 this.kmActuales += aux.getEtiqueta();
-
             }
         }
 
