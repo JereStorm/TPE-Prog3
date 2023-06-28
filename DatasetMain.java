@@ -9,7 +9,7 @@ public class DatasetMain {
 	public static void main(String[] args) {
 		// PATH/AL/ARCHIVO
 		String pathLau = "./Datasets/dataset1.txt";
-		String path = "src/Datasets/dataset3.txt";
+		String path = "src/Datasets/dataset1.txt";
 
 		CSVReader reader = new CSVReader(path);
 
@@ -22,21 +22,22 @@ public class DatasetMain {
 
 		Greedy greedy = new Greedy(arcosDataSet);
 
-		System.out.println("Greedy");
+		System.out.println("Resolucion por Greedy");
+		System.out.print("\n");
 		
 		List<Arco<Integer>> solucion = greedy.greedy();
 		
-		System.out.print(" ");
+	
 		for (Arco<Integer> a : solucion) {
 			int origen = a.getVerticeOrigen();
 			int destino = a.getVerticeDestino();
 			System.out.print("E" + origen + "-E" + destino + ",");
 		}
-		System.out.print(";");
-		System.out.println(" ");
+		System.out.println(";");
+	
 		
-		System.out.println("Kilometros totales: " + greedy.getKmActuales());
-		System.out.println("Metrica: " + greedy.getMetrica());
+		System.out.println(greedy.getKmActuales() + " Kms");
+		System.out.println(greedy.getMetrica() + " Metrica");
 		
 		System.out.println(" ");
 
@@ -46,21 +47,21 @@ public class DatasetMain {
 		
 		Backtracking backtracking = new Backtracking(arcosDataSet2);
 
-		System.out.println("Backtracking");
-		
+		System.out.println("Resolucion por Backtracking");
+		System.out.print("\n");
 		List<Arco<Integer>> solucion2 = backtracking.backtracking();
 		
-		System.out.print(" ");
+		
 		for (Arco<Integer> a : solucion2) {
 			int origen = a.getVerticeOrigen();
 			int destino = a.getVerticeDestino();
 			System.out.print("E" + origen + "-E" + destino + ",");
 		}
-		System.out.print(";");
-		System.out.println(" ");
+		System.out.println(";");
+	
 		
-		System.out.println("Kilometros totales: " + backtracking.getKmTotales());
-		System.out.println("Metrica: " + backtracking.getMetrica());
+		System.out.println(backtracking.getKmTotales()+ " Kms");
+		System.out.println(backtracking.getMetrica() + " Metrica");
 
 	}
 }
