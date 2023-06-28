@@ -24,7 +24,7 @@ public class Backtracking {
 
 	}
 
-	List<Arco<Integer>> backtracking() {
+	public List<Arco<Integer>> backtracking() {
 		this.setKmTotales(this.dataSet);
 		Estado estado = new Estado(this.cantEstaciones);
 		this.backtracking(estado);
@@ -56,13 +56,13 @@ public class Backtracking {
 
 			// si las decisiones que me quedan por tomar son menores
 			// que la cantidad minima de conexiones que requiero
-
+			// y ya no llego a la solucion optima dejo de generar estados
 			if (this.noFaltanCandidatos(posActual, e)) {
 				e.setPosActual(posActual + 1);
 				this.backtracking(e);
 				e.setPosActual(posActual);
 			}
-
+			
 			if (this.addArcoAccesible(tunel, e) && this.esSolucionFactible(e, tunel)) {
 
 				UnionFind aux = (UnionFind) e.getUnionFind().clone();
@@ -72,9 +72,9 @@ public class Backtracking {
 				e.addArco(tunel);
 				e.setKmActuales(kmActuales + tunel.getEtiqueta());
 				e.setPosActual(posActual + 1);
-
+				
 				this.backtracking(e);
-
+				
 				e.setUnionFind(aux);
 
 				e.removeArco(tunel);
@@ -85,23 +85,28 @@ public class Backtracking {
 		}
 	}
 
+	// ----------------------------------- PODAS
+	// -----------------------------------------
+	// -----------------------------------------
+
 	private boolean esSolucionFactible(Estado e, Arco<Integer> tunel) {
 		return e.getKmActuales() + tunel.getEtiqueta() < this.kmTotales;
 	}
 
-	private boolean noFaltanCandidatos(Integer posActual,Estado e) {
-		//calculamos la cantidad de decisiones disponibles
+	private boolean noFaltanCandidatos(Integer posActual, Estado e) {
+		// calculamos la cantidad de decisiones disponibles
 		int decisionesPorTomar = this.dataSet.size() - posActual;
-		//verificamos que estas decisiones disponibles  con el minimo de 
+		// verificamos que estas decisiones disponibles con el minimo de
 		boolean poda = decisionesPorTomar < this.cantEstaciones - 1;
 
-		if(poda && e.getParcial().size() - decisionesPorTomar < 0) {
+		if (poda && e.getParcial().size() - decisionesPorTomar < 0) {
 			return false;
 		}
-		
+
 		return true;
-	
+
 	}
+
 	private boolean addArcoAccesible(Arco<Integer> tunel, Estado e) {
 		int u = e.getUnionFind().find(this.estaciones.indexOf(tunel.getVerticeDestino()));
 		int v = e.getUnionFind().find(this.estaciones.indexOf(tunel.getVerticeOrigen()));

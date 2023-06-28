@@ -9,7 +9,7 @@ public class DatasetMain {
 	public static void main(String[] args) {
 		// PATH/AL/ARCHIVO
 		String pathLau = "./Datasets/dataset1.txt";
-		String path = "src/Datasets/dataset3.txt";
+		String path = "src/Datasets/dataset1.txt";
 
 		CSVReader reader = new CSVReader(path);
 
@@ -33,7 +33,6 @@ public class DatasetMain {
 			System.out.print("E" + origen + "-E" + destino + ",");
 		}
 		System.out.print(";");
-		
 		System.out.println(" ");
 		
 		System.out.println("Kilometros totales: " + greedy.getKmActuales());
@@ -44,12 +43,6 @@ public class DatasetMain {
 		// ------------------------ RESOLUCION POR ALGORITMO BACKTRACKING
 		// --------------------------------------------------------------
 		// --------------------------------------------------------------
-
-		/*
-		 * Complejidad: A la hora de calcualr la complejidad , SERA 2 a la n - 1, pq si
-		 * tenemos 4 estaciones con un minimo de 3 conexiones, ya alcanza y no vamos a
-		 * explorar mas q eso
-		 */
 		
 		Backtracking backtracking = new Backtracking(arcosDataSet2);
 
@@ -64,7 +57,6 @@ public class DatasetMain {
 			System.out.print("E" + origen + "-E" + destino + ",");
 		}
 		System.out.print(";");
-		
 		System.out.println(" ");
 		
 		System.out.println("Kilometros totales: " + backtracking.getKmTotales());
