@@ -21,6 +21,9 @@ public class Backtracking {
 
 	}
 
+	/*
+	 * Funcion publica que devolvera la mejor solucion medida en la menor cantidad de kilometros de tunel posibles
+	 */
 	public List<Arco<Integer>> backtracking() {
 		this.setKmTotales(this.dataSet);
 		Estado estado = new Estado(this.cantEstaciones);
@@ -28,6 +31,10 @@ public class Backtracking {
 		return this.mejorSolucion;
 	}
 
+	/*
+	 * Metodo privado se se encargara de generar todas las soluciones posibles y 
+	 * filtrar la mejor solucion medida en la menor cantidad de kilometros de tunel posibles
+	 */
 	private void backtracking(Estado e) {
 		this.metrica++;
 
@@ -84,13 +91,30 @@ public class Backtracking {
 	}
 
 	/*
-	 * --------- PODAS ---------
+	 * 
+	 * ---------------------------------------------------------------------
+	 * ------------------------------------------------------------- PODAS
+	 * ---------------------------------------------------------------------
 	 */
 
+	/*
+	 * Funcion encargada de podar todos aquellos estados que intentarian construir
+	 * una solucion que No sobrepasa a la mejor solucion encontrada hasta ese
+	 * momento
+	 * 
+	 * O(1)
+	 */
 	private boolean esSolucionFactible(Estado e, Arco<Integer> tunel) {
 		return e.getKmActuales() + tunel.getEtiqueta() < this.kmTotales;
 	}
 
+	/*
+	 * Funcion encargada de podar todos aquellos estados que no llegaran a una
+	 * solucion factible verificando que los cadidatos que queden por seleccionar
+	 * alcanzen para encontrar la minima solucion
+	 * 
+	 * o(1)
+	 */
 	private boolean noFaltanCandidatos(Integer posActual, Estado e) {
 		// calculamos la cantidad de decisiones disponibles
 		int decisionesPorTomar = this.dataSet.size() - posActual;
@@ -105,6 +129,13 @@ public class Backtracking {
 
 	}
 
+	/*
+	 * Metodo encargado de podar todos aquellos estados que agreguen tuneles
+	 * redundantes a la solucion parcial verificando que las estaciones no
+	 * pertenezcan al mismo conjunto del unionFind
+	 *
+	 * O(a) donde "a" son la cantidad de estaciones (subconjuntos del unionFind)
+	 */
 	private boolean addArcoAccesible(Arco<Integer> tunel, Estado e) {
 		int u = e.getUnionFind().find(this.estaciones.indexOf(tunel.getVerticeDestino()));
 		int v = e.getUnionFind().find(this.estaciones.indexOf(tunel.getVerticeOrigen()));
@@ -116,9 +147,18 @@ public class Backtracking {
 	}
 
 	/*
-	 * --------- METODOS DE CLASE ---------
+	 * ---------------------------------------------------------------------------
+	 * ------------------------------------------------------- METODOS DE CLASE
+	 * ---------------------------------------------------------------------------
 	 */
 
+	/*
+	 * Esta funcion obtiene las estaciones correspondientes a los tuneles del
+	 * dataSet
+	 *
+	 * O(n * a) donde "n" es la cantidad de tuneles del dataSet y "a" la cantidad de
+	 * estaciones que voy incorporando
+	 */
 	private ArrayList<Integer> getEstaciones() {
 		ArrayList<Integer> aux = new ArrayList<>();
 		for (Arco<Integer> a : this.dataSet) {
@@ -133,6 +173,12 @@ public class Backtracking {
 		return aux;
 	}
 
+	/*
+	 * Este metodo se encarga de setear los kmActuales de la mejor solucion con la
+	 * suma de todos los tuneles del dataSet
+	 * 
+	 * O(n) donde "n" es la cantidad de tuneles del dataSet
+	 */
 	private void setKmTotales(List<Arco<Integer>> tuneles) {
 		int sumaTotal = 0;
 		for (Arco<Integer> x : tuneles) {
