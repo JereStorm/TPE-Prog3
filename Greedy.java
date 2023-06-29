@@ -76,7 +76,8 @@ public class Greedy {
     /*
      * Este metodo se encarga de filtrar las estaciones en funcion de los Tuneles.
      * 
-     * O(n) donde "n" es la cantidad de tuneles.
+     * O(n * a) donde "n" es la cantidad de tuneles del dataSet y "a" la cantidad de
+	 * estaciones que voy incorporando.
      */
     private void setEstaciones() {
         for (Arco<Integer> a : this.candidatos) {
@@ -90,7 +91,9 @@ public class Greedy {
 
     }
 
-    /* Este Metodo se encarga de corroborar si un arco es redudante o no (osea si agrega una conexion nueva con una estacion).
+    /*
+     *Este Metodo se encarga de corroborar si un arco es redudante o
+     * no (osea si agrega una conexion nueva con una estacion).
      * 
      * O(a) donde "a" es la cantidad de accesos a memoria del find().
      */

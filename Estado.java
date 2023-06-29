@@ -44,7 +44,6 @@ public class Estado {
     }
    
 	public void addArco(Arco<Integer> a){
-    
         this.parcial.add(a);
     }
 

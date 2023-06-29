@@ -32,8 +32,8 @@ public class Backtracking {
 	}
 
 	/*
-	 * Metodo privado se se encargara de generar todas las soluciones posibles y 
-	 * filtrar la mejor solucion medida en la menor cantidad de kilometros de tunel posibles
+	 * Metodo privado que se encargara de generar todas las soluciones posibles y
+	 * filtrar la mejor solucion medida en la menor cantidad de kilometros de tunel posibles.
 	 */
 	private void backtracking(Estado e) {
 		this.metrica++;
@@ -58,9 +58,12 @@ public class Backtracking {
 			Integer kmActuales = e.getKmActuales();
 			Arco<Integer> tunel = this.dataSet.get(posActual);
 
-			// si las decisiones que me quedan por tomar son menores
-			// que la cantidad minima de conexiones que requiero
-			// y ya no llego a la solucion optima dejo de generar estados
+			/*
+			* si las decisiones que me quedan por tomar son menores
+			* que la cantidad minima de conexiones que requiero
+			* y ya no llego a la solucion optima, dejo de generar estados.
+			*/
+
 			if (this.noFaltanCandidatos(posActual, e)) {
 				e.setPosActual(posActual + 1);
 				this.backtracking(e);
@@ -70,7 +73,10 @@ public class Backtracking {
 			// Si el tunel es optimo y no sobrepasa a los km de la mejor solucion
 			if (this.addArcoAccesible(tunel, e) && this.esSolucionFactible(e, tunel)) {
 
+				// Hacemos una copia del UnionFind.
 				UnionFind aux = (UnionFind) e.getUnionFind().clone();
+
+				// Seteamos la nueva conexion entre las estaciones.
 				e.getUnionFind().union(this.estaciones.indexOf(tunel.getVerticeOrigen()),
 						this.estaciones.indexOf(tunel.getVerticeDestino()));
 
@@ -80,6 +86,7 @@ public class Backtracking {
 
 				this.backtracking(e);
 
+				//Seteamos la copia previa a la union() del unionFind.
 				e.setUnionFind(aux);
 
 				e.removeArco(tunel);
@@ -130,9 +137,9 @@ public class Backtracking {
 	}
 
 	/*
-	 * Metodo encargado de podar todos aquellos estados que agreguen tuneles
-	 * redundantes a la solucion parcial verificando que las estaciones no
-	 * pertenezcan al mismo conjunto del unionFind
+	 * Funcion encargada de podar todos aquellos estados que agreguen tuneles
+	 * redundantes a la solucion parcial, verificando que las estaciones no
+	 * pertenezcan al mismo conjunto del unionFind.
 	 *
 	 * O(a) donde "a" son la cantidad de estaciones (subconjuntos del unionFind)
 	 */
