@@ -59,8 +59,8 @@ public class Backtracking {
 				this.backtracking(e);
 				e.setPosActual(posActual);
 			}
-			
-			//Si el tunel es optimo y no sobrepasa a los km de la mejor solucion
+
+			// Si el tunel es optimo y no sobrepasa a los km de la mejor solucion
 			if (this.addArcoAccesible(tunel, e) && this.esSolucionFactible(e, tunel)) {
 
 				UnionFind aux = (UnionFind) e.getUnionFind().clone();
@@ -70,9 +70,9 @@ public class Backtracking {
 				e.addArco(tunel);
 				e.setKmActuales(kmActuales + tunel.getEtiqueta());
 				e.setPosActual(posActual + 1);
-				
+
 				this.backtracking(e);
-				
+
 				e.setUnionFind(aux);
 
 				e.removeArco(tunel);
@@ -84,9 +84,7 @@ public class Backtracking {
 	}
 
 	/*
-	 *---------
-	 *------------- PODAS
-	 *---------
+	 * --------- PODAS ---------
 	 */
 
 	private boolean esSolucionFactible(Estado e, Arco<Integer> tunel) {
@@ -118,11 +116,9 @@ public class Backtracking {
 	}
 
 	/*
-	 *---------
-	 *------------- METODOS DE CLASE 
-	 *---------
+	 * --------- METODOS DE CLASE ---------
 	 */
-	
+
 	private ArrayList<Integer> getEstaciones() {
 		ArrayList<Integer> aux = new ArrayList<>();
 		for (Arco<Integer> a : this.dataSet) {
@@ -136,6 +132,7 @@ public class Backtracking {
 
 		return aux;
 	}
+
 	private void setKmTotales(List<Arco<Integer>> tuneles) {
 		int sumaTotal = 0;
 		for (Arco<Integer> x : tuneles) {
