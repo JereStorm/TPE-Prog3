@@ -2,7 +2,7 @@ package Grafo;
 
 import java.util.Iterator;
 
-public interface Grafo<T> {
+public interface Grafo<T extends Comparable<T>>{
 
     // Agrega un vertice
     public void agregarVertice(int verticeId);

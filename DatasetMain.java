@@ -8,7 +8,7 @@ public class DatasetMain {
 
 	public static void main(String[] args) {
 		// PATH/AL/ARCHIVO
-		String pathIntellij = "./Datasets/dataset2.txt";
+		String pathIntellij = "./Datasets/dataset3.txt";
 		String pathEclipse = "src/Datasets/dataset2.txt";
 
 		CSVReader reader = new CSVReader(pathIntellij);
@@ -45,23 +45,23 @@ public class DatasetMain {
 		// --------------------------------------------------------------
 		// --------------------------------------------------------------
 		
-		Backtracking backtracking = new Backtracking(arcosDataSet2);
-
-		System.out.println("Resolucion por Backtracking");
-		System.out.print("\n");
-		List<Arco<Integer>> solucion2 = backtracking.backtracking();
-
-
-		for (Arco<Integer> a : solucion2) {
-			int origen = a.getVerticeOrigen();
-			int destino = a.getVerticeDestino();
-			System.out.print("E" + origen + "-E" + destino + ",");
-		}
-		System.out.println(";");
-	
-
-		System.out.println(backtracking.getKmTotales()+ " Kms");
-		System.out.println(backtracking.getMetrica() + " Metrica");
+//		Backtracking backtracking = new Backtracking(arcosDataSet2);
+//
+//		System.out.println("Resolucion por Backtracking");
+//		System.out.print("\n");
+//		List<Arco<Integer>> solucion2 = backtracking.backtracking();
+//
+//
+//		for (Arco<Integer> a : solucion2) {
+//			int origen = a.getVerticeOrigen();
+//			int destino = a.getVerticeDestino();
+//			System.out.print("E" + origen + "-E" + destino + ",");
+//		}
+//		System.out.println(";");
+//
+//
+//		System.out.println(backtracking.getKmTotales()+ " Kms");
+//		System.out.println(backtracking.getMetrica() + " Metrica");
 
 	}
 }

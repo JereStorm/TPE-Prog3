@@ -14,18 +14,16 @@ public class Backtracking {
 	public Backtracking(List<Arco<Integer>> dataSet) {
 		this.dataSet = dataSet;
 		this.mejorSolucion = new ArrayList<Arco<Integer>>();
-		this.kmTotales = -1;
+		this.kmTotales = Integer.MAX_VALUE;// Retorna el valor entero mas grande.
 		this.metrica = 0;
 		this.estaciones = this.getEstaciones();
 		this.cantEstaciones = this.estaciones.size();
-
 	}
 
 	/*
 	 * Funcion publica que devolvera la mejor solucion medida en la menor cantidad de kilometros de tunel posibles
 	 */
 	public List<Arco<Integer>> backtracking() {
-		this.setKmTotales(this.dataSet);
 		Estado estado = new Estado(this.cantEstaciones);
 		this.backtracking(estado);
 		return this.mejorSolucion;
@@ -39,7 +37,6 @@ public class Backtracking {
 		this.metrica++;
 
 		if (e.getPosActual() == this.dataSet.size()) {
-
 			if (e.getUnionFind().numberOfSets() == 1 && e.getParcial().size() == this.cantEstaciones - 1) {
 
 				if (this.mejorSolucion.isEmpty()) {
@@ -74,9 +71,10 @@ public class Backtracking {
 			if (this.addArcoAccesible(tunel, e) && this.esSolucionFactible(e, tunel)) {
 
 				// Hacemos una copia del UnionFind.
+				//O(n) donde n es la cant de estaciones
 				UnionFind aux = (UnionFind) e.getUnionFind().clone();
 
-				// Seteamos la nueva conexion entre las estaciones.
+				// El costo del union se ve determinado pro el costo del find()
 				e.getUnionFind().union(this.estaciones.indexOf(tunel.getVerticeOrigen()),
 						this.estaciones.indexOf(tunel.getVerticeDestino()));
 
@@ -141,7 +139,7 @@ public class Backtracking {
 	 * redundantes a la solucion parcial, verificando que las estaciones no
 	 * pertenezcan al mismo conjunto del unionFind.
 	 *
-	 * O(a) donde "a" son la cantidad de estaciones (subconjuntos del unionFind)
+	 * O(a) donde "a" son la cantidad de estaciones (subconjuntos del unionFind).
 	 */
 	private boolean addArcoAccesible(Arco<Integer> tunel, Estado e) {
 		int u = e.getUnionFind().find(this.estaciones.indexOf(tunel.getVerticeDestino()));
@@ -178,21 +176,6 @@ public class Backtracking {
 		}
 
 		return aux;
-	}
-
-	/*
-	 * Este metodo se encarga de setear los kmActuales de la mejor solucion con la
-	 * suma de todos los tuneles del dataSet
-	 * 
-	 * O(n) donde "n" es la cantidad de tuneles del dataSet
-	 */
-	private void setKmTotales(List<Arco<Integer>> tuneles) {
-		int sumaTotal = 0;
-		for (Arco<Integer> x : tuneles) {
-			sumaTotal += x.getEtiqueta();
-		}
-		this.kmTotales = sumaTotal;
-
 	}
 
 	private void setKmTotales(Integer kmActuales) {

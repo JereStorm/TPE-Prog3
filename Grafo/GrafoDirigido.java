@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class GrafoDirigido<T> implements Grafo<T> {
+public class GrafoDirigido<T extends Comparable<T>> implements Grafo<T> {
 
     Map<Integer, ArrayList<Arco<T>>> vertices = new HashMap<Integer, ArrayList<Arco<T>>>();
 

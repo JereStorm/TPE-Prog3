@@ -2,7 +2,7 @@ package Grafo;
 
 import Grafo.GrafoDirigido;
 
-public class GrafoNoDirigido<T> extends GrafoDirigido<T> {
+public class GrafoNoDirigido<T extends Comparable<T>> extends GrafoDirigido<T> {
 
     @Override
     public void agregarArco(int verticeId1, int verticeId2, T etiqueta) {

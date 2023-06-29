@@ -1,11 +1,13 @@
 package Grafo;
 
+import java.util.Comparator;
+
 /*
  * La clase arco representa un arco del grafo. Contiene un vertice origen, un vertice destino y una etiqueta.
  * Nota: Para poder exponer los arcos fuera del grafo y que nadie los modifique se hizo esta clase inmutable
  * (Inmutable: una vez creado el arco no es posible cambiarle los valores).
  */
-public class Arco<T> {
+public class Arco<T extends Comparable<T>> implements Comparable<Arco<T>> {
 
     private int verticeOrigen;
     private int verticeDestino;
@@ -35,8 +37,10 @@ public class Arco<T> {
 	public int getCantidadArcos(){
 		return this.cantidad;
 	}
-   
-    @Override
+
+
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -79,4 +83,9 @@ public class Arco<T> {
                 ", etiqueta= " + etiqueta +
                 '}';
     }
+
+	@Override
+	public int compareTo(Arco<T> o) {
+		return this.getEtiqueta().compareTo(o.getEtiqueta());
+	}
 }
